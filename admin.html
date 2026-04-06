@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intel Command | Secure Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #020408; }
+        #loginScreen { width: 100%; max-width: 400px; padding: 40px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 30px; backdrop-filter: blur(20px); text-align: center; }
+        #adminDashboard { display: none; width: 100%; max-width: 1000px; padding: 20px; margin: 40px auto; align-self: flex-start; }
+        .cyber-form { background: rgba(255,255,255,0.02); padding: 30px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 30px; }
+        input, textarea, select { width: 100%; padding: 15px; margin-bottom: 15px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 12px; }
+        .mgmt-card { background: rgba(255,255,255,0.02); padding: 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .btn-update { border: 2px solid var(--primary) !important; background: rgba(99, 102, 241, 0.1) !important; }
+    </style>
+</head>
+<body>
+
+    <div id="loginScreen">
+        <i class="fa-solid fa-user-shield" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
+        <h2 style="margin-bottom: 20px;">COMMAND <span>LOGIN</span></h2>
+        <input type="password" id="passInput" placeholder="Enter Admin Secret Code" style="text-align: center;">
+        <button class="scan-btn" onclick="login()">UNLOCK ACCESS</button>
+    </div>
+
+    <div id="adminDashboard">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 30px;">
+            <h2><i class="fa-solid fa-terminal"></i> INTEL <span>DASHBOARD</span></h2>
+            <button onclick="location.reload()" style="background:none; border:none; color:var(--secondary); cursor:pointer;"><i class="fa-solid fa-power-off"></i> Logout</button>
+        </div>
+
+        <form id="adminForm" class="cyber-form">
+            <input type="hidden" id="editId">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <input type="text" id="jobTitle" placeholder="Job Title (e.g. SSC CGL)" required>
+                <input type="text" id="jobCategory" placeholder="Category (UPSC, Bank...)" required>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <input type="text" id="lastDate" placeholder="Last Date">
+                <input type="text" id="jobFee" placeholder="Fee (Gen: 100, SC: 0)">
+            </div>
+            <input type="url" id="notifLink" placeholder="Notification Link (URL)">
+            <input type="url" id="syllabLink" placeholder="Syllabus Link (URL)">
+            <input type="url" id="applyLink" placeholder="Apply Link" required>
+            <textarea id="jobSyllabus" rows="4" placeholder="Extra Details / Process"></textarea>
+            
+            <div style="display:flex; gap:10px;">
+                <button type="submit" id="submitBtn" class="scan-btn" style="flex:2;">PUBLISH TO CLOUD</button>
+                <button type="button" id="cancelBtn" class="scan-btn" style="flex:1; background:#333; display:none;">CANCEL</button>
+            </div>
+        </form>
+
+        <div style="position:relative; margin-bottom:20px;">
+            <i class="fa-solid fa-magnifying-glass" style="position:absolute; left:15px; top:18px; color:var(--primary);"></i>
+            <input type="text" id="mgmtSearch" placeholder="Search across Cloud & Local Repo..." style="padding-left:45px;">
+        </div>
+
+        <div id="mgmtList"></div>
+    </div>
+
+    <script src="job-list.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAYa9HkQnvfS-7jotgUuuyuVT4m9mVK45I",
+            authDomain: "jobintel-admin.firebaseapp.com",
+            projectId: "jobintel-admin",
+            storageBucket: "jobintel-admin.firebasestorage.app",
+            messagingSenderId: "238487111199",
+            appId: "1:238487111199:web:74ef4b93b72be2f723b72a"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const colRef = collection(db, "jobs");
+        let cloudJobs = [];
+
+        // 🔐 Simple Login Logic
+        window.login = () => {
+            if(document.getElementById('passInput').value === "admin123") {
+                document.getElementById('loginScreen').style.display = "none";
+                document.getElementById('adminDashboard').style.display = "block";
+                document.body.style.display = "block";
+            } else { alert("Wrong Command Code!"); }
+        };
+
+        // 🚀 Fetch & Merge Search
+        onSnapshot(query(colRef, orderBy("createdAt", "desc")), (snap) => {
+            cloudJobs = snap.docs.map(d => ({ id: d.id, ...d.data(), source: 'Cloud' }));
+            updateMgmtList("");
+        });
+
+        function updateMgmtList(term) {
+            const localData = typeof jobs !== 'undefined' ? jobs.map(j => ({...j, source: 'Local (Read-Only)'})) : [];
+            const combined = [...cloudJobs, ...localData];
+            const filtered = combined.filter(j => j.title.toLowerCase().includes(term.toLowerCase()));
+            
+            document.getElementById('mgmtList').innerHTML = filtered.map(job => `
+                <div class="mgmt-card">
+                    <div>
+                        <strong>${job.title}</strong>
+                        <small style="display:block; color:var(--text-dim);">${job.source} | ${job.category}</small>
+                    </div>
+                    <div>
+                        ${job.id ? `<button onclick="editJob('${job.id}')" style="background:var(--primary); border:none; color:#fff; padding:8px; border-radius:5px; cursor:pointer; margin-right:5px;"><i class="fa-solid fa-pen"></i></button>
+                        <button onclick="deleteJob('${job.id}')" style="background:#ef4444; border:none; color:#fff; padding:8px; border-radius:5px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>` : `<i class="fa-solid fa-lock" title="Local files cannot be edited here"></i>`}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        document.getElementById('mgmtSearch').addEventListener('input', (e) => updateMgmtList(e.target.value));
+
+        // 📝 Add/Update Logic
+        document.getElementById('adminForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('editId').value;
+            const data = {
+                title: document.getElementById('jobTitle').value,
+                category: document.getElementById('jobCategory').value,
+                lastDate: document.getElementById('lastDate').value,
+                fee: document.getElementById('jobFee').value,
+                notification: document.getElementById('notifLink').value,
+                syllabusLink: document.getElementById('syllabLink').value,
+                link: document.getElementById('applyLink').value,
+                syllabus: document.getElementById('jobSyllabus').value,
+                updatedAt: serverTimestamp()
+            };
+
+            if(id) { await updateDoc(doc(db, "jobs", id), data); alert("Updated!"); }
+            else { data.createdAt = serverTimestamp(); await addDoc(colRef, data); alert("Published!"); }
+            resetForm();
+        });
+
+        window.editJob = (id) => {
+            const j = cloudJobs.find(x => x.id === id);
+            document.getElementById('editId').value = j.id;
+            document.getElementById('jobTitle').value = j.title;
+            document.getElementById('jobCategory').value = j.category;
+            document.getElementById('lastDate').value = j.lastDate || '';
+            document.getElementById('jobFee').value = j.fee || '';
+            document.getElementById('notifLink').value = j.notification || '';
+            document.getElementById('syllabLink').value = j.syllabusLink || '';
+            document.getElementById('applyLink').value = j.link;
+            document.getElementById('jobSyllabus').value = j.syllabus || '';
+            document.getElementById('submitBtn').innerText = "UPDATE CLOUD DATA";
+            document.getElementById('cancelBtn').style.display = "block";
+            document.getElementById('adminForm').classList.add('btn-update');
+        };
+
+        window.deleteJob = async (id) => { if(confirm("Delete permanently?")) await deleteDoc(doc(db, "jobs", id)); };
+
+        function resetForm() {
+            document.getElementById('adminForm').reset();
+            document.getElementById('editId').value = "";
+            document.getElementById('submitBtn').innerText = "PUBLISH TO CLOUD";
+            document.getElementById('cancelBtn').style.display = "none";
+            document.getElementById('adminForm').classList.remove('btn-update');
+        }
+    </script>
+</body>
+</html>
