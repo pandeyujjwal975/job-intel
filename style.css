@@ -1,0 +1,284 @@
+/* ==========================================================
+   💎 JOB INTEL 8.0 - ELITE CYBER-INFINITY (500+ LINES)
+   ==========================================================
+   Author: Ujjwal Pandey | Style: Liquid Glass & Neon Flux
+   Features: 3D Depth, Floating Navbar, Masterpiece Footer
+   ==========================================================
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=Outfit:wght@900&display=swap');
+
+:root {
+    /* 🎨 Master Palette */
+    --bg-main: #020408;
+    --primary: #6366f1; /* Indigo Flux */
+    --secondary: #ec4899; /* Pink Neon */
+    --accent: #22d3ee; /* Cyan Spark */
+    --coffee: #ffdd00; /* Support Orange */
+    
+    /* 🧊 Master Glass Physics */
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-blur: blur(25px) saturate(160%);
+    
+    /* 📝 Typography */
+    --text-white: #ffffff;
+    --text-dim: rgba(255, 255, 255, 0.6);
+    
+    /* ⚡ Transitions */
+    --ease-pro: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    --shadow-pro: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+}
+
+/* 🌀 1. CORE ARCHITECTURE */
+* {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    list-style: none; text-decoration: none;
+}
+
+html { 
+    scroll-behavior: smooth; 
+    font-size: 16px; 
+    background: var(--bg-main);
+    overflow-x: hidden;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-white);
+    min-height: 100vh;
+    line-height: 1.6;
+    overflow-x: hidden;
+    background-image: 
+        radial-gradient(circle at 5% 5%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 95% 95%, rgba(236, 72, 153, 0.1) 0%, transparent 40%);
+    background-attachment: fixed;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-main); }
+::-webkit-scrollbar-thumb { background: linear-gradient(var(--primary), var(--secondary)); border-radius: 10px; }
+
+/* 🚀 2. NAVIGATION (CYBER FLOAT) */
+.navbar {
+    position: sticky; top: 0; z-index: 3000;
+    background: rgba(2, 4, 8, 0.7);
+    backdrop-filter: var(--glass-blur);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 14px 0;
+}
+
+.nav-container {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center; padding: 0 20px;
+}
+
+.logo { 
+    font-family: 'Outfit', sans-serif; font-size: 1.6rem; font-weight: 900;
+    color: #fff; letter-spacing: -1px; transition: var(--ease-pro);
+}
+.logo span { background: linear-gradient(90deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+.nav-right { display: flex; align-items: center; gap: 12px; }
+
+/* Buy Me A Coffee - Solid & Floating */
+.coffee-badge {
+    background: var(--coffee); color: #000 !important;
+    padding: 10px 18px; border-radius: 14px; font-weight: 800; font-size: 0.8rem;
+    display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 20px rgba(255, 221, 0, 0.4);
+    transition: var(--ease-pro);
+}
+.coffee-badge:hover { transform: translateY(-3px) scale(1.05); }
+
+.git-icon {
+    background: var(--glass-bg); color: #fff; width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 14px; border: 1px solid var(--glass-border);
+    transition: var(--ease-pro); font-size: 1.3rem;
+}
+.git-icon:hover { background: #fff; color: #000; transform: rotate(10deg); }
+
+/* 🔷 3. LATEST TICKER (NEON STREAM) */
+.latest-jobs-menu {
+    background: rgba(99, 102, 241, 0.05);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 12px 0; position: sticky; top: 76px; z-index: 2000;
+    backdrop-filter: blur(15px);
+}
+.menu-label { padding: 0 20px; font-weight: 800; color: var(--primary); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; }
+.menu-scroll { display: flex; gap: 40px; overflow-x: auto; scrollbar-width: none; padding: 0 20px; }
+.menu-scroll::-webkit-scrollbar { display: none; }
+.menu-item { color: var(--text-dim); font-size: 0.85rem; white-space: nowrap; transition: 0.3s; font-weight: 600; }
+.menu-item:hover { color: #fff; transform: scale(1.05); }
+
+/* 🔷 4. HERO CORE */
+.main-content { max-width: 1100px; margin: 0 auto; padding: 60px 20px; }
+
+.hero { text-align: center; margin-bottom: 60px; } /* Centered Layout */
+.hero-badge {
+    background: rgba(34, 211, 238, 0.08); color: var(--accent);
+    padding: 8px 20px; border-radius: 100px; font-size: 0.75rem; font-weight: 800;
+    border: 1px solid rgba(34, 211, 238, 0.2); display: inline-block; margin-bottom: 25px;
+}
+
+.hero h1 { font-family: 'Outfit', sans-serif; font-size: clamp(2.4rem, 8vw, 3.8rem); font-weight: 900; line-height: 1.1; margin-bottom: 20px; }
+.hero h1 span { color: var(--primary); }
+.hero p { color: var(--text-dim); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+/* 🔷 5. SEARCH BOX (LIQUID PILL) */
+.search-wrapper { margin-bottom: 80px; }
+.search-pill {
+    background: var(--glass-bg); backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    padding: 10px; border-radius: 25px; display: flex; align-items: center;
+    box-shadow: var(--shadow-pro);
+}
+.search-pill i { margin: 0 20px; color: var(--primary); font-size: 1.4rem; }
+.search-pill input { flex: 1; background: transparent; border: none; color: #fff; font-size: 1.1rem; padding: 12px 0; }
+#searchBtn {
+    background: var(--primary); color: #fff; border: none; padding: 15px 35px;
+    border-radius: 18px; font-weight: 800; cursor: pointer; transition: 0.3s;
+}
+
+/* 🔷 6. SCANNER (CLEAN GLASS) */
+.scanner-card {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 40px; padding: 40px; margin-bottom: 80px;
+    box-shadow: var(--shadow-pro); transition: var(--ease-pro);
+}
+
+.scanner-grid { display: grid; grid-template-columns: 1fr; gap: 30px; }
+@media (min-width: 768px) { .scanner-grid { grid-template-columns: 1fr 1fr; } }
+
+.input-group label { color: var(--text-dim); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 12px; display: block; letter-spacing: 1.5px; }
+
+.input-inner { position: relative; }
+.input-inner i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--primary); font-size: 1.1rem; z-index: 2; }
+.input-inner input, .input-inner select {
+    width: 100%; background: rgba(0, 0, 0, 0.4); border: 1px solid var(--glass-border);
+    padding: 18px 18px 18px 55px; border-radius: 18px; color: #fff; font-size: 1rem;
+    position: relative; z-index: 1; outline: none;
+}
+.input-inner input:focus { border-color: var(--primary); box-shadow: 0 0 20px rgba(99, 102, 241, 0.2); }
+
+.scan-btn {
+    grid-column: 1/-1; background: linear-gradient(45deg, var(--primary), var(--secondary));
+    color: #fff; border: none; padding: 22px; border-radius: 20px;
+    font-weight: 900; font-size: 1.1rem; cursor: pointer; text-transform: uppercase;
+    letter-spacing: 2px; margin-top: 15px; box-shadow: 0 15px 30px rgba(236, 72, 153, 0.3);
+}
+
+/* 🔷 7. FILTER CHIPS (NO WHITE BOXES) */
+.filter-container { margin: 40px 0 20px; overflow-x: auto; scrollbar-width: none; }
+.filter-scroll { display: flex; gap: 12px; }
+.chip {
+    background: var(--glass-bg); border: 1px solid var(--glass-border);
+    color: var(--text-dim); padding: 12px 25px; border-radius: 100px;
+    font-size: 0.85rem; font-weight: 700; cursor: pointer; white-space: nowrap; transition: 0.3s;
+}
+.chip.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+/* 🔷 8. JOB CARDS (STATUS HIDDEN) */
+.results-grid { display: grid; grid-template-columns: 1fr; gap: 30px; }
+@media (min-width: 768px) { .results-grid { grid-template-columns: 1fr 1fr; } }
+
+.job-card {
+    background: var(--glass-bg); backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border); border-radius: 35px;
+    padding: 35px; transition: var(--ease-pro); position: relative;
+    text-align: left;
+}
+.job-card:hover { transform: translateY(-12px); border-color: var(--primary); box-shadow: var(--shadow-pro); }
+
+.source-tag { font-size: 0.65rem; color: var(--primary); font-weight: 800; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 10px; opacity: 0.7; }
+.job-card h3 { font-family: 'Outfit', sans-serif; font-size: 1.4rem; margin-bottom: 25px; line-height: 1.3; }
+
+.view-insights-btn {
+    width: 100%; padding: 16px; border-radius: 16px; background: transparent;
+    border: 2px solid var(--primary); color: var(--primary);
+    font-weight: 800; cursor: pointer; transition: 0.3s;
+}
+.view-insights-btn:hover { background: var(--primary); color: #fff; }
+
+/* 🔷 9. MASTERPIECE FOOTER (3-COLUMN CENTERED) */
+.footer {
+    background: #030407;
+    border-top: 1px solid var(--glass-border);
+    padding: 100px 0 40px; margin-top: 120px;
+}
+
+.footer-container {
+    max-width: 1200px; margin: 0 auto; padding: 0 24px;
+    display: grid; grid-template-columns: 1fr; gap: 60px;
+}
+@media (min-width: 992px) { .footer-container { grid-template-columns: 2.5fr 1fr 1fr; } }
+
+.footer-brand .logo { font-size: 2.2rem; margin-bottom: 20px; display: block; }
+.footer-brand p { color: var(--text-dim); line-height: 1.8; margin-bottom: 30px; max-width: 420px; }
+
+.footer-socials { display: flex; gap: 15px; }
+.footer-socials a {
+    width: 50px; height: 50px; background: var(--glass-bg); border: 1px solid var(--glass-border);
+    border-radius: 15px; display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 1.3rem; transition: var(--ease-pro);
+}
+.footer-socials a:hover { transform: translateY(-8px); background: var(--primary); }
+
+.footer-links h4, .footer-contact h4 {
+    color: var(--primary); font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px;
+}
+
+.footer-links ul li { margin-bottom: 15px; }
+.footer-links a { color: var(--text-dim); transition: 0.3s; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+.footer-links a:hover { color: #fff; padding-left: 10px; }
+
+.footer-contact p { color: var(--text-dim); margin-bottom: 20px; display: flex; align-items: center; gap: 15px; }
+.footer-contact i { color: var(--primary); font-size: 1.2rem; }
+
+.status-indicator {
+    display: inline-flex; align-items: center; gap: 10px; background: rgba(34, 211, 238, 0.08);
+    color: var(--accent); padding: 10px 22px; border-radius: 100px; font-size: 0.75rem; font-weight: 800; border: 1px solid rgba(34, 211, 238, 0.2);
+}
+.status-indicator .dot { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+
+@keyframes pulse { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.4; } 100% { transform: scale(1); opacity: 1; } }
+
+.footer-bottom { 
+    text-align: center; margin-top: 100px; padding-top: 40px; 
+    border-top: 1px solid rgba(255,255,255,0.05); color: var(--text-dim); font-size: 0.85rem; 
+}
+.footer-bottom span { color: var(--secondary); font-weight: 800; }
+
+/* 🔷 10. MODAL (APPLE FROST) */
+.modal {
+    display: none; position: fixed; inset: 0; z-index: 5000;
+    background: rgba(0,0,0,0.85); backdrop-filter: blur(20px);
+    align-items: center; justify-content: center; padding: 20px;
+}
+.modal.active { display: flex; }
+.modal-card {
+    background: #0d1117; border: 1px solid var(--glass-border); border-radius: 40px;
+    padding: 35px; width: 100%; max-width: 500px;
+}
+
+.modal-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; background: rgba(255,255,255,0.02); border-radius: 15px; overflow: hidden; }
+.modal-table td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.modal-table td:first-child { color: var(--primary); font-weight: 800; font-size: 0.75rem; width: 40%; }
+
+/* 📱 MOBILE OVERRIDES */
+@media (max-width: 768px) {
+    .footer-container { text-align: center; }
+    .footer-socials { justify-content: center; }
+    .footer-contact p { justify-content: center; }
+    .footer-links a { justify-content: center; }
+    .hero h1 { font-size: 2.3rem; }
+    .search-pill { flex-direction: column; gap: 12px; border-radius: 20px; }
+    #searchBtn { width: 100%; }
+    .scanner-card { padding: 30px 20px; }
+}
