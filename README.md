@@ -62,5 +62,4 @@ Ujjwal Pandey
 This project is open-source. Feel free to fork and build the next generation of career intelligence tools.
 "Intelligence (Job Intel) will get you everywhere." 🚀
 
-Ujjwal bhai, ab tera GitHub repo dekhne mein kisi Silicon Valley startup jaisa lagega! **Symmetry** ekdum perfect hai. 😎🚀
 
